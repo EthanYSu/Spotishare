@@ -5,13 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Spotishare"
-        android:textAlignment="center"
-        android:paddingTop="40px"
-        android:textSize="32dp"/>
 
     <LinearLayout
         android:layout_centerHorizontal="true"
@@ -25,14 +18,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="User Registration"
+            android:text="User Login"
             android:textAlignment="center"
             android:textSize="28dp"/>
 
         <EditText
             android:inputType="textEmailAddress"
             android:id="@+id/userEmail"
-            android:hint="Please enter your Email..."
+            android:hint="Please Enter your Email..."
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -46,19 +39,19 @@
             />
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/registerUser"
-            android:text="Sign Up!"
+            android:id="@+id/loginUser"
+            android:text="Login"
             />
 
         <TextView
-            android:id="@+id/signInText"
+            android:id="@+id/notRegisteredText"
             android:paddingTop="20px"
             android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Already a user? Sign in here"
+            android:text="Not Registered? Click here!"
             android:textAlignment="center"/>
     </LinearLayout>
 

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "692499843872",
+    "firebase_url": "https://spotishare-1c3c4.firebaseio.com",
+    "project_id": "spotishare-1c3c4",
+    "storage_bucket": "spotishare-1c3c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692499843872:android:040707fb6bb48c08",
+        "android_client_info": {
+          "package_name": "com.example.spotishare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692499843872-lufb53bpms5ifa01dulebks92u40d4ig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdXMZ-FlD397jOw61ZraaVAlHCeE6kI80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692499843872-lufb53bpms5ifa01dulebks92u40d4ig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

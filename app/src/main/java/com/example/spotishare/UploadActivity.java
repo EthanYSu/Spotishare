@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
     private Button chooseFileButton, confirmUploadButton;
     private TextView fileNameText;
+    private EditText songName;
 
     private Uri filePath;
 
@@ -48,6 +50,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        songName = findViewById(R.id.songName);
         fileNameText = findViewById(R.id.fileNameText);
         chooseFileButton = findViewById(R.id.chooseFileButton);
         confirmUploadButton = findViewById(R.id.confirmUploadButton);
@@ -69,7 +72,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             String email = user.getEmail();
             String currentFileName = file.getName();
 
-            final FileInfo fileInfo = new FileInfo(email, currentFileName);
+            final FileInfo fileInfo = new FileInfo(email, currentFileName, songName.getText().toString().trim());
 
             StorageReference audioRef = storageReference.child("audio/" + currentFileName);
             audioRef.putFile(filePath)
@@ -78,6 +81,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+                            songName.setText("");
                             String uploadID = databaseReference.push().getKey();
                             databaseReference.child(uploadID).setValue(fileInfo);
                         }

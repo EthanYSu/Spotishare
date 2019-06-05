@@ -22,12 +22,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:text="Confirm Upload"/>
+    <EditText
+        android:id="@+id/songName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chooseFileButton"
+        android:hint="Enter the song name..."/>
 
     <TextView
         android:id="@+id/fileNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/chooseFileButton"
+        android:layout_below="@+id/songName"
+        android:paddingTop="10dp"
         android:layout_centerHorizontal="true"
         android:textSize="24dp"/>
 

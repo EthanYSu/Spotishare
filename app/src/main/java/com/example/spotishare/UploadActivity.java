@@ -11,10 +11,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -26,18 +31,24 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
     private static final int fileRequestCode = 123;
 
     private Button chooseFileButton, confirmUploadButton;
+    private TextView fileNameText;
 
     private Uri filePath;
 
+    private FirebaseAuth firebaseAuth;
     private StorageReference storageReference;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
+        firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        fileNameText = findViewById(R.id.fileNameText);
         chooseFileButton = findViewById(R.id.chooseFileButton);
         confirmUploadButton = findViewById(R.id.confirmUploadButton);
 
@@ -53,42 +64,36 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
             progressDialog.setTitle("Uploading");
             progressDialog.show();
 
-            String uriString = filePath.toString();
-            File currentFile = new File(uriString);
-            String currentFileName = currentFile.getName();
-            System.out.println("Current File name: " + currentFileName);
+            final File file = new File(filePath.getLastPathSegment());
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            String email = user.getEmail();
+            String currentFileName = file.getName();
 
-            StorageReference riversRef = storageReference.child("audio/AudioFile");
-            riversRef.putFile(filePath)
+            final FileInfo fileInfo = new FileInfo(email, currentFileName);
+
+            StorageReference audioRef = storageReference.child("audio/" + currentFileName);
+            audioRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            //if the upload is successfull
-                            //hiding the progress dialog
                             progressDialog.dismiss();
-
-                            //and displaying a success toast
                             Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+                            String uploadID = databaseReference.push().getKey();
+                            databaseReference.child(uploadID).setValue(fileInfo);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            //if the upload is not successfull
-                            //hiding the progress dialog
                             progressDialog.dismiss();
 
-                            //and displaying error message
                             Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            //calculating progress percentage
                             double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-
-                            //displaying percentage in progress dialog
                             progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
                         }
                     });
@@ -113,10 +118,10 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         if(requestCode == fileRequestCode && resultCode == RESULT_OK && data != null && data.getData() != null ){
             filePath = data.getData();
-//            String uri = filepath.toString();
-//            File myFile = new File(uri);
-//            String path = myFile.getAbsolutePath();
-//            String displayName = myFile.getName();
+            File file = new File(filePath.getLastPathSegment());
+            String currentFileName = file.getName();
+            String fileNameDisplay = "Current File Name: "+ currentFileName;
+            fileNameText.setText(fileNameDisplay);
         }
     }
 

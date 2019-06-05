@@ -23,4 +23,12 @@
         android:layout_alignParentRight="true"
         android:text="Confirm Upload"/>
 
+    <TextView
+        android:id="@+id/fileNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chooseFileButton"
+        android:layout_centerHorizontal="true"
+        android:textSize="24dp"/>
+
 </RelativeLayout>

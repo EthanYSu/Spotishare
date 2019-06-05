@@ -9,13 +9,16 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView currentUserEmail;
-    private Button logoutButton, uploadButton;
+    private Button logoutButton, uploadButton, browseButton;
 
     private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +36,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         currentUserEmail = findViewById(R.id.currentUserEmail);
         currentUserEmail.setText("Hello " + currentUser.getEmail());
 
+
+        browseButton = findViewById(R.id.browseButton);
         logoutButton = findViewById(R.id.logoutUserButton);
         uploadButton = findViewById(R.id.uploadButton);
 
         logoutButton.setOnClickListener(this);
         uploadButton.setOnClickListener(this);
+        browseButton.setOnClickListener(this);
     }
 
 
@@ -50,6 +56,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
         if(v == uploadButton){
             startActivity(new Intent(this, UploadActivity.class));
+        }
+        if(v == browseButton){
+            startActivity(new Intent(this, BrowseActivity.class));
         }
 
     }

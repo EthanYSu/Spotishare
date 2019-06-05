@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "692499843872-uair7k0j5c0835h8jtkk342cionamqpp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spotishare",
+            "certificate_hash": "562d358547f3e1248a5fca3e4d671c8745ef35b8"
+          }
+        },
+        {
           "client_id": "692499843872-lufb53bpms5ifa01dulebks92u40d4ig.apps.googleusercontent.com",
           "client_type": 3
         }

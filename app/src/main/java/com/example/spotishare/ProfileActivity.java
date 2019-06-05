@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView currentUserEmail;
-    private Button logoutButton;
+    private Button logoutButton, uploadButton;
 
     private FirebaseAuth firebaseAuth;
     @Override
@@ -34,8 +34,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         currentUserEmail.setText("Hello " + currentUser.getEmail());
 
         logoutButton = findViewById(R.id.logoutUserButton);
+        uploadButton = findViewById(R.id.uploadButton);
 
         logoutButton.setOnClickListener(this);
+        uploadButton.setOnClickListener(this);
     }
 
 
@@ -45,6 +47,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
+        }
+        if(v == uploadButton){
+            startActivity(new Intent(this, UploadActivity.class));
         }
 
     }

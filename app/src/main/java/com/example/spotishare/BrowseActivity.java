@@ -2,15 +2,19 @@ package com.example.spotishare;
 
 import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
@@ -20,10 +24,11 @@ import java.util.List;
 public class BrowseActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
-    private List<FileInfo> fileInfo;
+    private ArrayList<FileInfo> fileInfo;
     private ListView songListView;
     private SongListAdapter songListAdapter;
     private ProgressDialog progressDialog;
+    private SearchView songSearch;
 
 
     @Override
@@ -35,6 +40,7 @@ public class BrowseActivity extends AppCompatActivity {
 
         fileInfo = new ArrayList<>();
         songListView = findViewById(R.id.listViewSongs);
+        songSearch = findViewById(R.id.songSearch);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading song list, please wait ...");
         progressDialog.show();
@@ -54,11 +60,14 @@ public class BrowseActivity extends AppCompatActivity {
 
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(BrowseActivity.this, "Could not read from Database :( ", Toast.LENGTH_LONG).show();
 
             }
         });
+
     }
+
 }

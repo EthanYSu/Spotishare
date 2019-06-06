@@ -14,4 +14,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/downloadSongButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Download Song"
+        android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/addToPlaylistButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Add to Playlist"/>
+
 </RelativeLayout>

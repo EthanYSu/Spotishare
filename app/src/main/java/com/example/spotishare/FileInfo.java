@@ -1,6 +1,9 @@
 package com.example.spotishare;
 
-public class FileInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class FileInfo implements Parcelable {
     private String mCurrentUser;
     private String mFileName;
     private String mSongName;
@@ -17,6 +20,25 @@ public class FileInfo {
         mSongName = songName;
         mDownloadLink = downloadLink;
     }
+
+    protected FileInfo(Parcel in) {
+        mCurrentUser = in.readString();
+        mFileName = in.readString();
+        mSongName = in.readString();
+        mDownloadLink = in.readString();
+    }
+
+    public static final Creator<FileInfo> CREATOR = new Creator<FileInfo>() {
+        @Override
+        public FileInfo createFromParcel(Parcel in) {
+            return new FileInfo(in);
+        }
+
+        @Override
+        public FileInfo[] newArray(int size) {
+            return new FileInfo[size];
+        }
+    };
 
     public String getCurrentUser(){
         return mCurrentUser;
@@ -45,4 +67,17 @@ public class FileInfo {
     public String getDownloadLink(){ return mDownloadLink;}
 
     public void setDownloadLink(String downloadLink){ mDownloadLink =  downloadLink;}
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mCurrentUser);
+        dest.writeString(mFileName);
+        dest.writeString(mSongName);
+        dest.writeString(mDownloadLink);
+    }
 }

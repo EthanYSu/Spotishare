@@ -15,8 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -69,21 +71,28 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
             final File file = new File(filePath.getLastPathSegment());
             FirebaseUser user = firebaseAuth.getCurrentUser();
-            String email = user.getEmail();
-            String currentFileName = file.getName();
+            final String email = user.getEmail();
+            final String currentFileName = file.getName();
 
-            final FileInfo fileInfo = new FileInfo(email, currentFileName, songName.getText().toString().trim());
 
-            StorageReference audioRef = storageReference.child("audio/" + currentFileName);
+            final StorageReference audioRef = storageReference.child("audio/" + currentFileName);
             audioRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
-                            songName.setText("");
-                            String uploadID = databaseReference.push().getKey();
-                            databaseReference.child(uploadID).setValue(fileInfo);
+                            audioRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String fileDownloadLink = uri.toString();
+                                    FileInfo fileInfo = new FileInfo(email, currentFileName, songName.getText().toString().trim(), fileDownloadLink);
+                                    String uploadID = databaseReference.push().getKey();
+                                    databaseReference.child(uploadID).setValue(fileInfo);
+                                    songName.setText("");
+                                }
+                            });
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -101,6 +110,20 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                             progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
                         }
                     });
+//            audioRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                @Override
+//                public void onSuccess(Uri uri) {
+//                    String fileDownloadLink = uri.toString();
+//                    FileInfo fileInfo = new FileInfo(email, currentFileName, songName.getText().toString().trim(), fileDownloadLink);
+//                    String uploadID = databaseReference.push().getKey();
+//                    databaseReference.child(uploadID).setValue(fileInfo);
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//                    // Handle any errors
+//                }
+//            });
         }
         //if there is not any file
         else {

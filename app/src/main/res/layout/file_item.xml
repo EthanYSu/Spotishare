@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp">
 
     <TextView
         android:id="@+id/listOfSongName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="File Name"
-        android:textSize="28dp"
-        android:paddingRight="16dp"/>
+        android:textSize="26dp"
+        />
+    <TextView
+        android:id="@+id/listOfCurrentUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="by: ..."/>
+
+    <TextView
+        android:id="@+id/songDownloadLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

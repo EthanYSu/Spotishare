@@ -4,17 +4,18 @@ public class FileInfo {
     private String mCurrentUser;
     private String mFileName;
     private String mSongName;
+    private String mDownloadLink;
 
     public FileInfo(){}
 
-    public FileInfo(String currentUser, String fileName, String songName){
+    public FileInfo(String currentUser, String fileName, String songName, String downloadLink){
         if(songName.trim().equals("")){
             fileName = "No Name";
         }
         mCurrentUser = currentUser;
         mFileName = fileName;
         mSongName = songName;
-
+        mDownloadLink = downloadLink;
     }
 
     public String getCurrentUser(){
@@ -40,4 +41,8 @@ public class FileInfo {
     public void setSongName(String songName){
         mSongName = songName;
     }
+
+    public String getDownloadLink(){ return mDownloadLink;}
+
+    public void setDownloadLink(String downloadLink){ mDownloadLink =  downloadLink;}
 }

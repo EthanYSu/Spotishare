@@ -54,8 +54,8 @@
 
         <TextView
             android:id="@+id/signInText"
-            android:paddingTop="20px"
-            android:textSize="15dp"
+            android:textSize="20dp"
+            android:paddingTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Already a user? Sign in here"

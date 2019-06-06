@@ -1,0 +1,1 @@
+# Spotishare - a worse version of spotify

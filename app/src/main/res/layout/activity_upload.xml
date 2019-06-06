@@ -24,10 +24,19 @@
         android:text="Confirm Upload"/>
     <EditText
         android:id="@+id/songName"
+        android:paddingTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/chooseFileButton"
         android:hint="Enter the song name..."/>
+
+    <EditText
+        android:id="@+id/songBioText"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/songName"
+        android:hint="Tell us about the song..."
+        android:paddingTop="16dp" />
 
     <TextView
         android:id="@+id/fileNameText"

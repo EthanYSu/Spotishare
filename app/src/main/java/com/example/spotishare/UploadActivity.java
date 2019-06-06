@@ -29,13 +29,16 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class UploadActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int fileRequestCode = 123;
 
     private Button chooseFileButton, confirmUploadButton;
     private TextView fileNameText;
-    private EditText songName;
+    private EditText songName, songBioText;
 
     private Uri filePath;
 
@@ -53,6 +56,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         songName = findViewById(R.id.songName);
+        songBioText = findViewById(R.id.songBioText);
         fileNameText = findViewById(R.id.fileNameText);
         chooseFileButton = findViewById(R.id.chooseFileButton);
         confirmUploadButton = findViewById(R.id.confirmUploadButton);
@@ -86,10 +90,15 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     String fileDownloadLink = uri.toString();
-                                    FileInfo fileInfo = new FileInfo(email, currentFileName, songName.getText().toString().trim(), fileDownloadLink);
+                                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                                    Date date = new Date();
+                                    //System.out.println(dateFormat.format(date));
+                                    String currentTime = dateFormat.format(date).toString();
+                                    FileInfo fileInfo = new FileInfo(email, currentFileName, songName.getText().toString().trim(), fileDownloadLink, currentTime, songBioText.getText().toString().trim());
                                     String uploadID = databaseReference.push().getKey();
                                     databaseReference.child(uploadID).setValue(fileInfo);
                                     songName.setText("");
+                                    songBioText.setText("");
                                 }
                             });
 

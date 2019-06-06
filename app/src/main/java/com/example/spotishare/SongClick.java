@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,15 +32,18 @@ public class SongClick extends AppCompatActivity implements View.OnClickListener
 
     FileInfo selectedSong;
     private static final String TAG = "SongClick Activity";
-    DatabaseReference databaseReference;
-    StorageReference storageReference, findSongRef;
+   // DatabaseReference databaseReference;
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_click);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        storageReference = FirebaseStorage.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+        String currentUserEmail = firebaseAuth.getCurrentUser().getEmail();
+
+        //databaseReference = FirebaseDatabase.getInstance().getReference();
+
         selectedSongName = findViewById(R.id.selectedSongName);
         songUploadedBy = findViewById(R.id.songUploadedBy);
         songUploadDate = findViewById(R.id.songUploadDate);
@@ -48,18 +52,18 @@ public class SongClick extends AppCompatActivity implements View.OnClickListener
         downloadSongButton = findViewById(R.id.downloadSongButton);
         addToPlaylistButton = findViewById(R.id.addToPlaylistButton);
 
-        downloadSongButton.setOnClickListener(this);
-        addToPlaylistButton.setOnClickListener(this);
-
         Intent intent = getIntent();
         selectedSong = intent.getParcelableExtra("FileInfo");
+
+        downloadSongButton.setOnClickListener(this);
+        addToPlaylistButton.setOnClickListener(this);
 
         createProfile(selectedSong);
     }
 
     private void createProfile(FileInfo selectedSong){
 
-        String userUploaded = "User who uploaded: " + selectedSong.getCurrentUser() + "\n";
+        String userUploaded = "Uploaded by: " + selectedSong.getCurrentUser() + "\n";
         String uploadDate = "Uploaded on: " + selectedSong.getCurrentDate()+ "\n";
         String songName = "Song Name: " + selectedSong.getSongName()+ "\n";
         String songBio = "Song Bio: " + selectedSong.getSongBio();
@@ -82,22 +86,24 @@ public class SongClick extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    private void addToPlaylist(){
 
-    }
 
     @Override
     public void onClick(View v) {
-        if(v == downloadSongButton){
-            Intent intent = getIntent();
-            FileInfo getCurrentFileName = intent.getParcelableExtra("FileInfo");
-            String currentFileName = getCurrentFileName.getFileName();
-            String currentDownloadLink = getCurrentFileName.getDownloadLink();
+        Intent intent = getIntent();
+        FileInfo getCurrentFileName = intent.getParcelableExtra("FileInfo");
+        String currentFileName = getCurrentFileName.getFileName();
+        String currentDownloadLink = getCurrentFileName.getDownloadLink();
+        String currentSongName = getCurrentFileName.getSongName();
 
+        if(v == downloadSongButton){
             downloadSong(SongClick.this, currentFileName, DIRECTORY_DOWNLOADS, currentDownloadLink);
         }
         if (v == addToPlaylistButton) {
-            addToPlaylist();
+            PlaylistSong currentSong = new PlaylistSong(currentSongName, currentFileName);
+            Intent addPlaylistIntent = new Intent(this, PlaylistActivity.class);
+            addPlaylistIntent.putExtra("SongInfo", currentSong);
+            this.startActivity(addPlaylistIntent);
         }
     }
 }

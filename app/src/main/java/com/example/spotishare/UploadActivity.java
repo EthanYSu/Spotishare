@@ -53,7 +53,7 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         firebaseAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("songInfo/");
 
         songName = findViewById(R.id.songName);
         songBioText = findViewById(R.id.songBioText);

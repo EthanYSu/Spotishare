@@ -36,7 +36,7 @@ public class BrowseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("songInfo/");
 
         fileInfo = new ArrayList<>();
         songListView = findViewById(R.id.listViewSongs);

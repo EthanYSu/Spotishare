@@ -44,6 +44,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
+        <!--<EditText-->
+            <!--android:id="@+id/textUsername"-->
+            <!--android:inputType="text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Enter a username..."/>-->
 
         <Button
             android:layout_width="match_parent"

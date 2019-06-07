@@ -15,7 +15,7 @@ import com.google.firebase.storage.StorageReference;
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView currentUserEmail;
-    private Button logoutButton, uploadButton, browseButton;
+    private Button logoutButton, uploadButton, browseButton, musicPlayerButton;
 
     private FirebaseAuth firebaseAuth;
 
@@ -40,10 +40,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         browseButton = findViewById(R.id.browseButton);
         logoutButton = findViewById(R.id.logoutUserButton);
         uploadButton = findViewById(R.id.uploadButton);
+        musicPlayerButton = findViewById(R.id.musicPlayerButton);
 
         logoutButton.setOnClickListener(this);
         uploadButton.setOnClickListener(this);
         browseButton.setOnClickListener(this);
+        musicPlayerButton.setOnClickListener(this);
     }
 
 
@@ -61,5 +63,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(new Intent(this, BrowseActivity.class));
         }
 
+        if(v == musicPlayerButton){
+            startActivity(new Intent(this, MusicPlayerActivity.class));
+        }
     }
 }

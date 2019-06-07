@@ -16,6 +16,13 @@
         android:text="Fill Text"
         android:textAlignment="center"/>
 
+    <Button
+        android:id="@+id/musicPlayerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Go to Music player"/>
 
     <Button
         android:id="@+id/uploadButton"

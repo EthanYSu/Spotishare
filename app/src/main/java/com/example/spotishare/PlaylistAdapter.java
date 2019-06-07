@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class PlaylistAdapter extends ArrayAdapter {
     private Activity context;
     private int resource;
     private ArrayList<PlaylistList> playlistListArrayList;
+    private static final String TAG = "IN PLAYLIST ADAPTER";
 
     public PlaylistAdapter(@NonNull Activity context, int resource, @NonNull ArrayList<PlaylistList> objects) {
         super(context, resource, objects);
@@ -29,6 +31,7 @@ public class PlaylistAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        Log.d(TAG, "We in adapter");
         View currentPlayList;
 
         LayoutInflater layoutInflater = context.getLayoutInflater();

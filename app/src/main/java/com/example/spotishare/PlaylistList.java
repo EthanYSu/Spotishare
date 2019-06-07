@@ -6,6 +6,8 @@ import android.os.Parcelable;
 public class PlaylistList implements Parcelable {
     private String playlistName;
 
+    public PlaylistList(){}
+
     public PlaylistList(String playlistName){
         this.playlistName = playlistName;
     }

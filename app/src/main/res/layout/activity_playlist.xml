@@ -5,11 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PlaylistActivity">
-    <EditText
-        android:id="@+id/userEnteredPlaylistName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter a new playlist Name ..."/>
+
     <Button
         android:id="@+id/createPlaylistButton"
         android:layout_width="wrap_content"

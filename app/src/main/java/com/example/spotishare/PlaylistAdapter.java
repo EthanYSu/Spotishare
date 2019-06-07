@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +30,7 @@ public class PlaylistAdapter extends ArrayAdapter {
     private static final String TAG = "IN PLAYLIST ADAPTER";
     private DatabaseReference databaseReference;
     PlaylistList databasePlaylist;
-    ArrayList<PlaylistSong> currentPlaylistSongs;
+    private ArrayList<PlaylistSong> currentPlaylistSongs;
 
 
 
@@ -79,9 +80,10 @@ public class PlaylistAdapter extends ArrayAdapter {
 
                             Log.d(TAG, "Current Song Name: " + currentPlaylistSong.getFileName());
                             Log.d(TAG, "Current File Name: " + currentPlaylistSong.getSongName());
-                            PlaylistSong newPlaylistSong = new PlaylistSong(currentPlaylistSong.getSongName(), currentPlaylistSong.getFileName());
-
-                            currentPlaylistSongs.add(newPlaylistSong);
+                            if(!currentPlaylistSong.getSongName().equals(playlistSong.getSongName())) {
+                                PlaylistSong newPlaylistSong = new PlaylistSong(currentPlaylistSong.getSongName(), currentPlaylistSong.getFileName());
+                                currentPlaylistSongs.add(newPlaylistSong);
+                            }
 
                         }
                         Log.d(TAG, "Current Playlist: " + currentPlaylistSongs);
@@ -94,6 +96,9 @@ public class PlaylistAdapter extends ArrayAdapter {
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Playlist Names")
                                 .child(playlistList.getPlaylistName());
                         newRef.setValue(updatedPlaylistList);
+                        String toastAddedSongMessage = "Song Added to " + playlistList.getPlaylistName();
+                        Toast.makeText(context, toastAddedSongMessage, Toast.LENGTH_SHORT).show();
+
 
 
                     }

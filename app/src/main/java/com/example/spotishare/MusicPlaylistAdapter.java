@@ -39,6 +39,13 @@ public class MusicPlaylistAdapter extends ArrayAdapter {
         String currentPlaylistMusic = playlistNames.get(position).toString();
 
         currentPlayListMusicText.setText(currentPlaylistMusic);
+
+        currentPlayListMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return currentPlayListMusic;
     }
 }

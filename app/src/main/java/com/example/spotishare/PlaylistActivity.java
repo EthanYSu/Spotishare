@@ -48,6 +48,7 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
         playlistListView = findViewById(R.id.playlistList);
         playlistListArrayList = new ArrayList<>();
 
+
         createPlayListButton.setOnClickListener(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading playlist list, please wait ...");
@@ -55,6 +56,7 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
 
         Log.d(TAG, "We outside Database reference");
         Log.d(TAG, "current UID" + firebaseAuth.getCurrentUser().getUid());
+
 
         databaseReference.child(firebaseAuth.getCurrentUser().getUid()).child("Playlist Names").addValueEventListener(new ValueEventListener() {
             @Override
@@ -68,7 +70,9 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
                     Log.d(TAG, "abcdefghi" + playlistList.getPlaylistName());
                     playlistListArrayList.add(playlistList);
                 }
-                playlistAdapter = new PlaylistAdapter(PlaylistActivity.this, R.layout.playlist_list, playlistListArrayList);
+                Intent getCurrentSongIntent = getIntent();
+                final PlaylistSong selectedSong = getCurrentSongIntent.getParcelableExtra("SongInfo");
+                playlistAdapter = new PlaylistAdapter(PlaylistActivity.this, R.layout.playlist_list, playlistListArrayList, selectedSong);
                 playlistListView.setAdapter(playlistAdapter);
 
             }
@@ -82,8 +86,12 @@ public class PlaylistActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        Intent getCurrentSongIntent = getIntent();
+        final PlaylistSong selectedSong = getCurrentSongIntent.getParcelableExtra("SongInfo");
         if(v == createPlayListButton){
-            startActivity(new Intent(this, CreatePlaylistActivity.class));
+            Intent createPlaylistIntent = new Intent( this, CreatePlaylistActivity.class);
+            createPlaylistIntent.putExtra("SongInfo", selectedSong);
+            this.startActivity(createPlaylistIntent);
 //
 //            String playlistName = userEnteredPlaylistName.getText().toString();
 //            String currentUserEmail = firebaseAuth.getCurrentUser().getEmail();

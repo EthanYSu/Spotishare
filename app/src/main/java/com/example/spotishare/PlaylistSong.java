@@ -7,6 +7,8 @@ public class PlaylistSong implements Parcelable {
     private String songName;
     private String fileName;
 
+    public PlaylistSong(){}
+
     public PlaylistSong(String songName, String fileName){
         this.songName = songName;
         this.fileName = fileName;

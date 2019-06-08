@@ -2,6 +2,7 @@ package com.example.spotishare;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ public class MusicPlaylistAdapter extends ArrayAdapter {
     private Activity context;
     private int resource;
     private ArrayList<String> playlistNames;
+
+
 
     public MusicPlaylistAdapter(@NonNull Activity context, int resource, @NonNull ArrayList<String> playlistNames) {
         super(context, resource, playlistNames);
@@ -34,15 +37,19 @@ public class MusicPlaylistAdapter extends ArrayAdapter {
 
         currentPlayListMusic = layoutInflater.from(context).inflate(R.layout.playlist_item, parent, false);
 
-        TextView currentPlayListMusicText = currentPlayListMusic.findViewById(R.id.currentPlaylistMusicItem);
+        final TextView currentPlayListMusicText = currentPlayListMusic.findViewById(R.id.currentPlaylistMusicItem);
 
-        String currentPlaylistMusic = playlistNames.get(position).toString();
+        final String currentPlaylistName = playlistNames.get(position);
 
-        currentPlayListMusicText.setText(currentPlaylistMusic);
+        currentPlayListMusicText.setText(currentPlaylistName);
 
         currentPlayListMusic.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                Intent songPlaylistIntent = new Intent(context, SongPlaylist.class);
+                songPlaylistIntent.putExtra("playlistName", currentPlaylistName);
+                context.startActivity(songPlaylistIntent);
 
             }
         });

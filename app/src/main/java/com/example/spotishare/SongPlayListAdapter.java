@@ -2,6 +2,8 @@ package com.example.spotishare;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -33,10 +35,20 @@ public class SongPlayListAdapter extends ArrayAdapter {
         currentPlaylistSongView = layoutInflater.from(context).inflate(R.layout.playlist_song, parent, false);
         TextView songPlaylistName = currentPlaylistSongView.findViewById(R.id.songPlaylistName);
 
-        PlaylistSong currentPlayListSong = playlistSongArrayList.get(position);
+        final PlaylistSong currentPlayListSong = playlistSongArrayList.get(position);
 
         songPlaylistName.setText(currentPlayListSong.getSongName());
 
-        return songPlaylistName;
+        currentPlaylistSongView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent playerIntent = new Intent(context,PlayerActivity.class);
+                playerIntent.putExtra("SongName", currentPlayListSong.getSongName());
+                playerIntent.putExtra("FileName", currentPlayListSong.getFileName());
+                context.startActivity(playerIntent);
+            }
+        });
+
+        return currentPlaylistSongView;
     }
 }

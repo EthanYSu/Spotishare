@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PlayerActivity"></activity>
+        <activity android:name=".ShareToUser"></activity>
+        <activity android:name=".ShareActivity" />
+        <activity android:name=".PlayerActivity" />
         <activity android:name=".SongPlaylist" />
         <activity android:name=".MusicPlayerActivity" />
         <activity android:name=".CreatePlaylistActivity" />

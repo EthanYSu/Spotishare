@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         if(v == sharePlaylistButton){
-            //todo
+            startActivity(new Intent(this, ShareActivity.class));
         }
     }
 }

@@ -1,17 +1,18 @@
 package com.example.spotishare;
 
 public class User {
-    private String userName;
+    private String email;
 
-    public User(String userName){
-        this.userName = userName;
+    public User(){};
+    public User(String email){
+        this.email = email;
     }
 
-    public String getUserName() {
-        return this.userName;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setEmail(String email) {
+        this.email =email;
     }
 }

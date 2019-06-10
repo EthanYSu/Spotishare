@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreatePlaylistActivity"
-    android:padding="16dp">
+    tools:context=".ShareToUser"
+    android:padding="16sp">
 
     <EditText
-        android:id="@+id/userEnteredPlaylistName"
+        android:id="@+id/userEnteredEmail"
         android:layout_width="match_parent"
-        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:hint="Enter a new playlist Name ..."/>
+        android:textSize="22sp"
+        android:hint="Enter the user's email..."/>
     <Button
-        android:id="@+id/createPlayList"
+        android:id="@+id/shareButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/userEnteredPlaylistName"
+        android:text="Share"
         android:layout_centerHorizontal="true"
-        android:text="Create Playlist"/>
+        android:layout_below="@id/userEnteredEmail"/>
+
 </RelativeLayout>

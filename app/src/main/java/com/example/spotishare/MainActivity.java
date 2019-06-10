@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(MainActivity.this, "User Registered Successful!", Toast.LENGTH_SHORT).show();
-                            databaseReference.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(currentUserEmail);
+                            User createNewUser = new User(currentUserEmail);
+                            databaseReference.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(createNewUser);
 
 
                         }else{
